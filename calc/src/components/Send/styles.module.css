@@ -1,0 +1,26 @@
+.component {
+  margin: 30px auto;
+}
+.component .button {
+  height: 45px;
+  width: 300px;
+  background-color: #7b0cf7;
+  color: #fff;
+  border-radius: 15px;
+  border: 2px solid #fff;
+  line-height: 45px;
+  text-align: center;
+}
+.component .button:hover {
+  background-color: #fff;
+  color: #7b0cf7;
+  border: 2px solid #7b0cf7;
+}
+.component .polic {
+  font-size: 10px;
+  color: rgb(82, 81, 81);
+}
+.component .polic a {
+  text-decoration: none; /* no underline */
+  color: #7b0cf7;
+}

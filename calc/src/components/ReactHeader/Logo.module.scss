@@ -1,0 +1,24 @@
+.AppLogo {
+    height: 50px;
+    width: 50px;
+    pointer-events: none;
+  }
+  
+  .AppHeader {
+    background-color: #282c34;
+    min-height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: right;
+    justify-content: right;
+    padding-right: 30px;
+    font-size: calc(10px + 2vmin);
+    color: white;
+
+
+    a{
+      color: #61DAFB;
+      text-decoration: none;
+      line-height: 50px;
+    }
+  }
