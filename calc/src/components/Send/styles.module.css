@@ -10,6 +10,7 @@
   border: 2px solid #fff;
   line-height: 45px;
   text-align: center;
+  cursor: pointer;
 }
 .component .button:hover {
   background-color: #fff;

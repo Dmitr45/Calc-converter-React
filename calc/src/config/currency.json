@@ -1,0 +1,26 @@
+{
+    "currency": [
+                 {"iso": "EUR", "nameRU": "Евро", "nameEN": "Euro", "icon": "https://s2.coinmarketcap.com/static/cloud/img/fiat-flags/EUR.svg"}, 
+                 {"iso": "USD", "nameRU": "Доллар", "nameEN": "American Dollar","icon": "https://s2.coinmarketcap.com/static/cloud/img/fiat-flags/USD.svg"}, 
+                 {"iso": "BRL", "nameRU": "Бразильский реал", "nameEN": "Brazilian Real", "icon": "https://s2.coinmarketcap.com/static/cloud/img/fiat-flags/BRL.svg"}, 
+                 {"iso": "RUB", "nameRU": "Российский рубль", "nameEN": "EuroRussian Ruble", "icon": "https://s2.coinmarketcap.com/static/cloud/img/fiat-flags/RUB.svg"},
+                 {"iso": "CNY", "nameRU": "Китайский юань", "nameEN": "Chinese Yuan", "icon": "https://s2.coinmarketcap.com/static/cloud/img/fiat-flags/CNY.svg"},
+                 {"iso": "JPY", "nameRU": "Японская иена", "nameEN": "Japanese Yen", "icon": "https://s2.coinmarketcap.com/static/cloud/img/fiat-flags/JPY.svg"}
+                ],
+
+    "cryptocurrency": [
+                        {"iso": "BTC", "nameRU": "Биткоин", "nameEN": "Bitcoin", "icon": "https://www.bybit.com/bycsi-root/assets/image/coins/light/btc.svg"},
+                        {"iso": "ETH", "nameRU": "", "nameEN": "Ethereum", "icon": "https://www.bybit.com/bycsi-root/assets/image/coins/light/eth.svg"},
+                        {"iso": "USDT", "nameRU": "", "nameEN": "Tether USDT", "icon": "https://www.bybit.com/bycsi-root/assets/image/coins/light/usdt.svg"},
+                        {"iso": "USDC", "nameRU": "", "nameEN": "USD Coin", "icon": "https://www.bybit.com/bycsi-root/assets/image/coins/light/usdc.svg"},
+                        {"iso": "SOL", "nameRU": "", "nameEN": "Solana", "icon": "https://www.bybit.com/bycsi-root/assets/image/coins/light/sol.svg"},
+                        {"iso": "LTC", "nameRU": "", "nameEN": "Litecoin", "icon": "https://www.bybit.com/bycsi-root/assets/image/coins/light/ltc.svg"},
+                        {"iso": "BNB", "nameRU": "", "nameEN": "Binance", "icon": "https://www.bybit.com/bycsi-root/assets/image/coins/light/bnb.svg"},
+                        {"iso": "XRP", "nameRU": "", "nameEN": "Ripple", "icon": "https://www.bybit.com/bycsi-root/assets/image/coins/light/xrp.svg"},
+                        {"iso": "TRX", "nameRU": "", "nameEN": "TRON", "icon": "https://www.bybit.com/bycsi-root/assets/image/coins/light/trx.svg"},
+                        {"iso": "DOGE", "nameRU": "", "nameEN": "Dogecoin", "icon": "https://www.bybit.com/bycsi-root/assets/image/coins/light/doge.svg"},
+                        {"iso": "ADA", "nameRU": "", "nameEN": "Cardano", "icon": "https://www.bybit.com/bycsi-root/assets/image/coins/light/ada.svg"},
+                        {"iso": "DOT", "nameRU": "", "nameEN": "Polkadot", "icon": "https://www.bybit.com/bycsi-root/assets/image/coins/light/dot.svg"},
+                        {"iso": "EOS", "nameRU": "", "nameEN": "EOS", "icon": "https://www.bybit.com/bycsi-root/assets/image/coins/light/eos.svg"}
+                        ]
+}

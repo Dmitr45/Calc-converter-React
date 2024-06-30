@@ -1,25 +1,47 @@
+.BuySellSwap {
+  height: 46px;
+  display: flex;
+  border-bottom: 0.5px solid gray;
+}
+.BuySellSwap .button {
+  display: block;
+  width: 30px;
+  height: 15px;
+  padding: 15px;
+  cursor: pointer;
+}
+.BuySellSwap .button_activ {
+  display: block;
+  width: 30px;
+  height: 15px;
+  padding: 15px;
+  border-bottom: 2px solid #7b0cf7;
+  cursor: pointer;
+}
+
 .component {
   flex: 1 1 700px;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .component .input {
   display: flex;
   flex-direction: row;
-  margin: 30px auto;
-  padding-top: 10px;
+  margin: 35px auto;
+  padding-top: 5px;
   width: 350px;
-  height: 45px;
+  height: 54px;
   background-color: rgb(235, 234, 234);
   border-radius: 10px;
   text-align: center;
 }
 .component .input input {
   all: unset;
-  margin: 0 20px;
-  max-width: 220px;
-  flex: 1 1 300px;
-  height: 30px;
+  margin: 0 5px;
+  max-width: 235px;
+  flex: 1 1 235px;
+  height: 45px;
   border: none;
   background-color: rgb(235, 234, 234);
   border-bottom: 1px solid #7b0cf7;
@@ -27,13 +49,78 @@
   font-size: 35px;
 }
 .component .input .select {
-  flex: 0 0 80px;
-  height: 30px;
-  line-height: 30px;
+  display: flex;
+  flex-direction: row;
+  flex: 0 0 100px;
+  height: 50px;
+  line-height: 0px;
+  font-size: 20px;
   background-color: rgba(180, 180, 180, 0.363);
   border-radius: 10px;
   background-image: url(icons8.png);
   background-repeat: no-repeat;
-  background-position: 60px;
+  background-position: 85px;
   background-size: 10px;
+  cursor: pointer;
+}
+.component .input .select_icon {
+  width: 30px;
+  height: 30px;
+  margin: 0px auto;
+  padding-top: 10px;
+}
+.component .input .select_iso {
+  width: 60px;
+  text-align: left;
+  line-height: 45px;
+  vertical-align: middle;
+}
+.component .nav_activ {
+  display: block;
+}
+.component .nav_hide {
+  display: none;
+}
+.component .buyNav, .component .selNav {
+  position: absolute;
+  background-color: rgb(230, 228, 228);
+  border-bottom: #7b0cf7 solid 1px;
+  border-left: #7b0cf7 solid 1px;
+  border-right: #7b0cf7 solid 1px;
+  border-radius: 15px;
+}
+.component .buyNav {
+  width: 340px;
+  height: 130px;
+  right: 30px;
+  top: 280px;
+}
+.component .selNav {
+  width: 340px;
+  height: 130px;
+  right: 30px;
+  top: 86px;
+}
+.component .ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: end;
+}
+.component .ul li {
+  display: block;
+  width: 42px;
+  height: 60px;
+  cursor: pointer;
+}
+.component .ul li .icon {
+  width: 25px;
+  height: 25px;
+}
+.component .icon_exchange {
+  margin: 0 auto;
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
 }
