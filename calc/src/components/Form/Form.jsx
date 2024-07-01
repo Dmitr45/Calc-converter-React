@@ -110,7 +110,7 @@ return(
         </form>
         <div className={css.select} onClick={()=>setNavSal(!navSal)}>
                 <img className={css.select_icon} src={saleCurrency.icon} alt={saleCurrency.nameEN} />
-                <div className={css.select_iso}>{saleCurrency.iso}</div> 
+                <div className={css.select_iso}>{saleCurrency.iso}</div> <div className={css.galka}>&or;</div>
             </div>
         </div>
 {/* 
@@ -132,7 +132,7 @@ return(
         </form>
         <div className={css.select} onClick={()=>setNavBuy(!navBuy)}> 
             <img className={css.select_icon} src={buyCurrency.icon} alt={buyCurrency.nameEN} /> 
-            <div className={css.select_iso}> {buyCurrency.iso}</div>
+            <div className={css.select_iso}> {buyCurrency.iso}</div><div className={css.galka}>&or;</div>
         </div>
     </div>
 
@@ -149,10 +149,8 @@ return(
     {liSaleList} 
 </div>
     
-    
-    
-    
-    <div className={css.message}>You get  {inputBuy} {buyCurrency.nameEN} for {inputSale} {saleCurrency.nameEN}</div>
+    <div className={css.message}>You get  {inputBuy} {buyCurrency.nameEN} for {inputSale} {saleCurrency.nameEN} <div className={css.galka}>&or;</div> </div>
+
 </div>
 </>
 )}

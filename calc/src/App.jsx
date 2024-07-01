@@ -13,9 +13,11 @@ function App() {
 
 
   return (
+    <div>
+    <ReactHeader/>
     <div className={css.background}>
-      <ReactHeader/>
       <Calc/>
+    </div>
     </div>
   );
 }

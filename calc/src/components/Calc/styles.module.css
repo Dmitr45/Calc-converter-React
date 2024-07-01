@@ -1,12 +1,12 @@
 .calc {
-  position: relative;
-  margin: 30px auto;
-  width: 400px;
-  height: 700px;
-  border: solid 2px #7d00ff;
-  border-radius: 20px;
-  text-align: center;
   display: flex;
+  padding: 25px;
+  position: relative;
+  margin: 0 auto;
+  width: 450px;
+  height: 700px;
+  border-radius: 35px;
+  text-align: center;
   flex-direction: column;
 }
 .calc .buttonTheme {
@@ -14,7 +14,7 @@
   width: 30px;
   height: 30px;
   right: 30px;
-  top: 33px;
+  top: 60px;
   cursor: pointer;
 }
 .calc .buttonTheme img {
