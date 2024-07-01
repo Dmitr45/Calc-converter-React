@@ -1,0 +1,9 @@
+@import "./config/variables.scss";
+
+
+.background{
+    background-color: $colorful;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}

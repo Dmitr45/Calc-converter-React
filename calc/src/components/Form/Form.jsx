@@ -2,12 +2,18 @@ import css  from './styles.module.css';
 import config from '../../config/config';
 import { useEffect, useState, useRef } from 'react';
 import Require from "../../config/CoinMarket";
+import lightTheme from '../../config/light-theme.module.css';
+import darkTheme from '../../config/dark-theme.module.css';
 
 
 export default function Form(props){
+//Props==========================================================================================================================
+let DarkTheme= props.DarkTheme;
+
 //BuySellSwap ===================================================================================================================
 
 const [ActivCategory, setActivCategory] = useState("Buy");
+
 
 useEffect(()=>{setActivCategory(ActivCategory);   },[ActivCategory]);
 
@@ -24,12 +30,12 @@ const CRYPTOCURRENCY = config("CRYPTOCURRENCY");
 
 const liCurrency =  <nav><ul className={css.ul}>
                         {CURRENCY.map((elem, index)=>{
-                            return <li key={index} onClick={()=>{setFocusCurr([index, FocusCurr[1]])}}><img className={css.icon} src={elem.icon} alt={elem.nameEN} /><br/>{elem.iso}</li>
+                            return <li key={index} onClick={()=>{setFocusCurr([index, FocusCurr[1]]);setNavSal(false);setNavBuy(false);}}><img className={css.icon} src={elem.icon} alt={elem.nameEN} /><div>{elem.nameEN}<br/>{elem.iso}</div></li>
                         })}    
                     </ul></nav>
 const liCrypto =  <nav><ul className={css.ul}>
                         {CRYPTOCURRENCY.map((elem, index)=>{
-                            return <li key={index} onClick={()=>{setFocusCrypto([index, FocusCrypto[1]])}}  ><img className={css.icon} src={elem.icon} alt={elem.nameEN} /><br/>{elem.iso}</li>
+                            return <li key={index} onClick={()=>{setFocusCrypto([index, FocusCrypto[1]]);setNavSal(false);setNavBuy(false)}}  ><img className={css.icon} src={elem.icon} alt={elem.nameEN} /><div>{elem.nameEN}<br/>{elem.iso}</div></li>
                         })}    
                     </ul></nav>
 
@@ -107,9 +113,9 @@ return(
                 <div className={css.select_iso}>{saleCurrency.iso}</div> 
             </div>
         </div>
-
+{/* 
         <div className={css.icon_exchange} onClick={exchangeCurr}   ><img className={css.img_icon_exchange} src="./currency-exchange.png" alt="Exchange" /></div>
-    
+     */}
 
         <div className={css.input}>
         <form>
@@ -129,9 +135,19 @@ return(
             <div className={css.select_iso}> {buyCurrency.iso}</div>
         </div>
     </div>
-    
-<div className={buyNav()} ref={navBuyRef}> {liBuyList}</div>
-<div className={navSal ? css.selNav: css.nav_hide} ref={navBuyRef}> {liSaleList} </div>
+
+
+<div className={`${navBuy ? css.buyNav: css.nav_hide} ${DarkTheme? darkTheme.theme: lightTheme.theme}`} ref={navBuyRef}>
+    <div className={css.headerSelect} onClick={()=>setNavBuy(!navBuy)}>&#10006;</div>
+    {liBuyList}
+</div>
+
+
+
+<div className={`${navSal ? css.selNav: css.nav_hide} ${DarkTheme? darkTheme.theme: lightTheme.theme}`} ref={navBuyRef}> 
+<div className={css.headerSelect} onClick={()=>setNavSal(!navSal)}>&#10006;</div>
+    {liSaleList} 
+</div>
     
     
     

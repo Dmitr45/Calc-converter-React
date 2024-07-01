@@ -1,3 +1,5 @@
+@import "../../config/variables.scss";
+
 .BuySellSwap{
     height: 46px;
     display: flex;
@@ -7,14 +9,18 @@
     width: 30px;  
     height: 15px;
     padding: 15px; 
+    opacity: 0.5;
+    font-weight: 700;
     cursor: pointer;
         &_activ{
         display: block;
         width: 30px;  
         height: 15px;
         padding: 15px; 
-        border-bottom: 2px solid #7b0cf7;
+        border-bottom: 2px solid $colorful;
         cursor: pointer;
+        opacity: 1;
+        font-weight: 700;
         }
      
     }
@@ -25,6 +31,8 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    transition: "top" 10s;
+
 
     .input{
         display: flex;
@@ -44,8 +52,8 @@
             height: 45px;
             border: none;
             background-color: rgb(235, 234, 234);
-            border-bottom: 1px solid #7b0cf7 ;
-            color: #7b0cf7;
+            border-bottom: 1px solid $colorful ;
+            color: $colorful;
             font-size: 35px;
             
         }
@@ -56,7 +64,6 @@
             height: 50px;
             line-height: 0px;
             font-size: 20px;
-
             background-color: rgba(180, 180, 180, 0.363);
             border-radius: 10px;
             background-image: url(icons8.png);
@@ -76,47 +83,97 @@
                 line-height: 45px;
                 vertical-align: middle;
             } 
+
         }
     }
     .nav_activ{
         display: block;
+
     }
 
     .nav_hide{
         display: none;
+        animation: 0.3s linear 0s  alternate DOWN;
     }
-
+    @keyframes DOWN {
+        from {
+          /* pushes the sun down past the viewport */
+          transform: translateY(25px);
+        }
+        to {
+          /* returns the sun to its default position */
+          transform: translateY(700px);
+        }
+      }
+    .headerSelect{
+        margin-top: 10px;
+        text-align: right;
+        cursor: pointer;
+        width: 95%;
+        height: 30px;
+        line-height: 30px;
+        font-size: 20px;
+    }
     .buyNav, .selNav{
             position: absolute;
-            background-color: rgba(230, 228, 228, 1);
-            border-bottom: #7b0cf7 solid 1px;
-            border-left: #7b0cf7 solid 1px;
-            border-right: #7b0cf7 solid 1px;;
-            border-radius: 15px;
+            //border-left: $colorful solid 1px;
+            //border-right: $colorful solid 1px;;
+            //border-radius: 20px;
+            opacity: 0.9;
+            backdrop-filter: blur(10px); //Эффект  матового стекла
+            animation: 0.15s linear 0s  alternate UP;
+            overflow: auto;
+            top:-50px;
+            &::-webkit-scrollbar {
+                width: 5px;
+                border-radius: 50px;
+
+              }
+            &::-webkit-scrollbar-thumb {
+                border-radius: 5px;
+                background-color:  #18aaaa; // #18aaaa;
+              }
+              
+            &::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+                border-radius: 0px;
+
+              }
+
             }
+            @keyframes UP {
+                from {
+                  /* pushes the sun down past the viewport */
+                  transform: translateY(700px);
+                }
+                to {
+                  /* returns the sun to its default position */
+                  transform: translateY(25px);
+                }
+              }
     .buyNav  {
-        width: 340px;
-        height: 130px;
-        right: 30px;
-        top: 280px;
+        width: 100%;
+        height: 650px;
+
+
     }  
     .selNav  {
-        width: 340px;
-        height: 130px;
+        width: 100%;
+        height: 650px;
 
-        right: 30px;
-        top: 86px;
+
 
     }    
     
     .ul{
         list-style-type: none;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: wrap;
-        justify-content: end;
+        justify-content:start;
         li{
-            display: block;
+            display: flex;
+            flex-direction: row;
             width: 42px;
             height: 60px;
             cursor: pointer;

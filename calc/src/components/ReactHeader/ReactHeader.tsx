@@ -7,7 +7,7 @@ export default function ReactHeader(){
 
 return(
 <div className={styles.AppHeader}>
-    <div> React-TypeScript-SCSS </div>
+    <div> React-SCSS </div>
     <div className='App-logo'>
         <img src={logo} className={styles.AppLogo}  alt="logo" />
     </div>    

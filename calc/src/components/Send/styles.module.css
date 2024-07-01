@@ -4,7 +4,7 @@
 .component .button {
   height: 45px;
   width: 300px;
-  background-color: #7b0cf7;
+  background-color: #7d00ff;
   color: #fff;
   border-radius: 15px;
   border: 2px solid #fff;
@@ -14,8 +14,8 @@
 }
 .component .button:hover {
   background-color: #fff;
-  color: #7b0cf7;
-  border: 2px solid #7b0cf7;
+  color: #7d00ff;
+  border: 2px solid #7d00ff;
 }
 .component .polic {
   font-size: 10px;
@@ -23,5 +23,5 @@
 }
 .component .polic a {
   text-decoration: none; /* no underline */
-  color: #7b0cf7;
+  color: #7d00ff;
 }
