@@ -30,12 +30,12 @@ const CRYPTOCURRENCY = config("CRYPTOCURRENCY");
 
 const liCurrency =  <nav><ul className={css.ul}>
                         {CURRENCY.map((elem, index)=>{
-                            return <li key={index} onClick={()=>{setFocusCurr([index, FocusCurr[1]]);setNavSal(false);setNavBuy(false);}}><img className={css.icon} src={elem.icon} alt={elem.nameEN} /><div>{elem.nameEN}<br/>{elem.iso}</div></li>
+                            return <li key={index} onClick={()=>{setFocusCurr([index, FocusCurr[1]]);setNavSal(false);setNavBuy(false);}}><img className={css.icon} src={elem.icon} alt={elem.nameEN} /><div>{elem.nameEN}<br/><span className={css.iso}>{elem.iso}</span></div></li>
                         })}    
                     </ul></nav>
 const liCrypto =  <nav><ul className={css.ul}>
                         {CRYPTOCURRENCY.map((elem, index)=>{
-                            return <li key={index} onClick={()=>{setFocusCrypto([index, FocusCrypto[1]]);setNavSal(false);setNavBuy(false)}}  ><img className={css.icon} src={elem.icon} alt={elem.nameEN} /><div>{elem.nameEN}<br/>{elem.iso}</div></li>
+                            return <li key={index} onClick={()=>{setFocusCrypto([index, FocusCrypto[1]]);setNavSal(false);setNavBuy(false)}}  ><img className={css.icon} src={elem.icon} alt={elem.nameEN} /><div>{elem.nameEN}<br/><span className={css.iso}>{elem.iso}</span></div></li>
                         })}    
                     </ul></nav>
 

@@ -3,12 +3,13 @@ import './App.css';
 import ReactHeader from './components/ReactHeader/ReactHeader';
 import Calc from './components/Calc/Calc';
 import css from "./css.module.css"
+import APIstate from './config/CoinMarket';
 
 
 
 
 function App() { 
-
+  APIstate();
 
 
 
@@ -18,6 +19,7 @@ function App() {
     <div className={css.background}>
       <Calc/>
     </div>
+
     </div>
   );
 }

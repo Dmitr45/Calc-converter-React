@@ -12,7 +12,7 @@ let [DarkTheme, setDarkTheme] = useState(true);
 
 return(
 <div className={`${css.calc} ${DarkTheme? darkTheme.theme: lightTheme.theme}`}>
-    <div className={css.buttonTheme} onClick={()=>{setDarkTheme(!DarkTheme)}}> <img src="./dark-mode.png" alt="Theme" /> </div>
+    {/* <div className={css.buttonTheme} onClick={()=>{setDarkTheme(!DarkTheme)}}> <img src="./dark-mode.png" alt="Theme" /> </div> */}
     <CalcHeader/>
     <Form DarkTheme={DarkTheme}/>
     <Send/>
