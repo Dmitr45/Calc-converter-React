@@ -3,35 +3,35 @@ import React, { useEffect, useState } from 'react';
 
 
 
-export default function APIstate(){
+export default function APIstate(isoBUY, isoSALE){
 
 // //const ====================================================================================
- const KEY = "fb65b1c8-c2ba-4a5d-85f3-1f567b1a2e9d"; //   https://pro.coinmarketcap.com/account
-const apiUrl= "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
+ const KEY = "cur_live_TaNrZpd4nenVo48AivP92jkELxjKF2yZw8bEZZCq"; //   https://app.currencyapi.com/dashboard
+const apiUrl=  "https://api.currencyapi.com/v3/latest?apikey="  //  https://app.currencyapi.com/dashboard
 
 // State ====================================================================================
-const [appState, setAppState] = useState();
+const [jsonData, setJsonData] = useState();
 
 
-// AXIOS GET =====================================================================================
-axios.get(apiUrl).then((resp) => {
-    const Data = resp.data;
-    setAppState(Data);
-  });
+// AXIOS POST =====================================================================================
 
+axios({
+  method: 'get',
+  url: apiUrl+KEY,
+  data: {}
+})
+  .then(response => {
+    console.log(response.data);
+    setJsonData(response.data);
+    })
+  .catch(error => {
+    console.log(error);
+    })
 
 // useEffect ================================================================================
-useEffect(() => {
-console.log(appState);
 
 
-}, [setAppState]);
-
-
-
-
-
-
+return  jsonData
 }
 
 

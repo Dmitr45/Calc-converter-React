@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react';
 import Require from "../../config/CoinMarket";
 import lightTheme from '../../config/light-theme.module.css';
 import darkTheme from '../../config/dark-theme.module.css';
+import APIstate from '../../config/CoinMarket'; // Функция определяет цену запрос APIstate(isoBuy, isoSale)
 
 
 export default function Form(props){
@@ -62,6 +63,12 @@ let [buyCurrency, setBuyCurrency]= useState(CURRENCY[FocusCurr[0]]);
 let [saleCurrency, setSaleCurrency] = useState(CRYPTOCURRENCY[FocusCrypto[0]]);
 
 // useEffect ====================================================================================================================
+useEffect(() => {  
+console.log("Form Api " + APIstate)
+}, []);
+
+
+
 useEffect(() => {  
     document.activeElement == iBuyRef.current ? setInputSale(inputBuy/price) :setInputBuy(inputSale*price);
 }, [inputBuy, inputSale]);
