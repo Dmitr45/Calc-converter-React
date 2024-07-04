@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 
 
-export default function APIstate(){
+export default function APIstate(isoBUY, isoSALE){
 
 //const ====================================================================================
 const urlApi = new URL(
@@ -32,24 +32,6 @@ const [apiData, setApiData] = useState();
 
 
 // Fetch POST =====================================================================================
-const requestOptions = {
-  method: 'POST',
-  headers: headers,
-  body: JSON.stringify(body)
-};
-
-fetch(urlApi, requestOptions)
-  .then(response => response.json())
-
-
-
-
-// useEffect ================================================================================
-useEffect(() => {
-console.log(apiData);
-
-
-}, [apiData]);
 
 }
 
