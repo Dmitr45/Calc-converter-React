@@ -5,32 +5,51 @@ import React, { useEffect, useState } from 'react';
 
 export default function APIstate(){
 
-// //const ====================================================================================
- const KEY = "fb65b1c8-c2ba-4a5d-85f3-1f567b1a2e9d"; //   https://pro.coinmarketcap.com/account
-const apiUrl= "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
+//const ====================================================================================
+const urlApi = new URL(
+  "https://staging.baltbit.com/crypto-fusion/api/v1/public/real-time/how-much"
+);
+const headers = {
+  "Content-Type": "application/json",
+  "Accept": "application/json",
+};
+
+let body = {
+  "payload": {
+      "direction": "target",
+      "source": {
+          "currency": "USD"
+      },
+      "target": {
+          "currency": "EUR"
+      }
+  }
+};
+
 
 // State ====================================================================================
-const [appState, setAppState] = useState();
+const [apiData, setApiData] = useState();
 
 
-// AXIOS GET =====================================================================================
-axios.get(apiUrl).then((resp) => {
-    const Data = resp.data;
-    setAppState(Data);
-  });
+// Fetch POST =====================================================================================
+const requestOptions = {
+  method: 'POST',
+  headers: headers,
+  body: JSON.stringify(body)
+};
+
+fetch(urlApi, requestOptions)
+  .then(response => response.json())
+
+
 
 
 // useEffect ================================================================================
 useEffect(() => {
-console.log(appState);
+console.log(apiData);
 
 
-}, [setAppState]);
-
-
-
-
-
+}, [apiData]);
 
 }
 
