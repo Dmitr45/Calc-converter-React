@@ -1,10 +1,9 @@
 import css  from './styles.module.css';
 import config from '../../config/config';
 import { useEffect, useState, useRef } from 'react';
-import Require from "../../config/CoinMarket";
 import lightTheme from '../../config/light-theme.module.css';
 import darkTheme from '../../config/dark-theme.module.css';
-import APIstate from '../../config/CoinMarket'; // Функция определяет цену запрос APIstate(isoBuy, isoSale)
+import axios from 'axios';
 
 
 export default function Form(props){
@@ -12,7 +11,6 @@ export default function Form(props){
 let DarkTheme= props.DarkTheme;
 
 //BuySellSwap ===================================================================================================================
-
 const [ActivCategory, setActivCategory] = useState("Buy");
 
 
@@ -24,10 +22,10 @@ const SwapButton = <div className={ActivCategory == "Swap" ? css.button_activ: c
 const allButton = [BuyButton, SellButton, SwapButton] 
 
 
-// Const =========================================================================================================================
-
+// Const Let =========================================================================================================================
 const CURRENCY= config("CURRENCY");
 const CRYPTOCURRENCY = config("CRYPTOCURRENCY");
+let body = {};
 
 const liCurrency =  <nav><ul className={css.ul}>
                         {CURRENCY.map((elem, index)=>{
@@ -52,20 +50,97 @@ let [buyCategory, setBuyCategory] = useState(CURRENCY);
 let [saleCategory, setSaleCategory] = useState(CRYPTOCURRENCY);
 let [navBuy, setNavBuy]=useState(false);
 let [navSal, setNavSal]=useState(false);
-let [inputSale, setInputSale] = useState(1);
-let [inputBuy, setInputBuy] = useState(0);
-let [price, setPrice] = useState(1.5);
 let [liBuyList, setLiBuyList] = useState(liCrypto)
 let [liSaleList, setLiSaleList] = useState(liCurrency)
 let [FocusCurr, setFocusCurr] = useState([0,0]);
 let [FocusCrypto, setFocusCrypto] = useState([0,1]);
 let [buyCurrency, setBuyCurrency]= useState(CURRENCY[FocusCurr[0]]);
 let [saleCurrency, setSaleCurrency] = useState(CRYPTOCURRENCY[FocusCrypto[0]]);
+let [price, setPrice] = useState(0);
+let [inputSale, setInputSale] = useState(1);
+let [inputBuy, setInputBuy] = useState(0);
+let [coinSecond, setCoinSecond] = useState(0);
+
+//API ========================================================================================================================
+
+//const ====================================================================================
+const urlApi = new URL(    "https://staging.baltbit.com/crypto-fusion/api/v1/public/real-time/how-much"        );
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+
+
+  // Fetch Post ===============================================================================
+
+function APIFetchPost(Crypt, Curr) {
+    console.log( "Запрос цены " + Crypt + " / " + Curr);
+    body = {
+        "payload": {
+            "direction": "source",
+            "source": {
+            "currency": Curr
+            },
+            "target": {
+            "amount": "1.00",
+            "currency": Crypt
+            }
+        }
+    };
+
+    fetch(urlApi, {
+        method: "POST",
+        headers,
+        body: JSON.stringify(body),
+    }
+    ).then(response => response.json())
+    .then((data) => { setPrice(data.data.source.amount) })
+    .catch(error => {console.log('Error occurred!')})
+}
+
+
+
+let coin = 0;
+function UpdateTimer(time){
+
+let timer =()=>{setTimeout(()=>{
+    if ( coin<20) {coin+=1; setCoinSecond(coin);} else { APIFetchPost(); coin=0; setCoinSecond(0);}
+    }, time)};
+clearTimeout(timer);
+timer();
+return coin
+}
+
+
+
+useEffect(()=>{
+console.log(UpdateTimer(1000))
+if (ActivCategory == "Buy") { APIFetchPost(buyCurrency.iso, saleCurrency.iso ); setInputBuy(inputSale*price)}
+if (ActivCategory == "Sell") {APIFetchPost( saleCurrency.iso, buyCurrency.iso); setInputBuy(inputSale/price)}
+},[saleCurrency,buyCurrency,inputSale, ActivCategory]);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // useEffect ====================================================================================================================
 useEffect(() => {  
-console.log("Form Api " + APIstate)
-}, []);
+    setPrice(price);
+}, [price, saleCurrency, buyCurrency]);
+
+
+
 
 
 
@@ -75,9 +150,9 @@ useEffect(() => {
 
 useEffect(()=>{
 setActivCategory(ActivCategory);
-if (ActivCategory=="Buy") { setBuyCategory(CRYPTOCURRENCY); setSaleCategory(CURRENCY); setLiBuyList(liCrypto); setLiSaleList(liCurrency); setBuyCurrency(CRYPTOCURRENCY[FocusCrypto[0]]); setSaleCurrency(CURRENCY[FocusCurr[0]]); console.log("Buy"); } 
-if (ActivCategory=="Sell") {setBuyCategory(CURRENCY); setSaleCategory(CRYPTOCURRENCY); setLiBuyList(liCurrency); setLiSaleList(liCrypto); setBuyCurrency(CURRENCY[FocusCurr[0]]); setSaleCurrency(CRYPTOCURRENCY[FocusCrypto[0]]); console.log("Sell");}
-if (ActivCategory=="Swap") {setBuyCategory(CRYPTOCURRENCY); setSaleCategory(CRYPTOCURRENCY); setLiBuyList(liCrypto); setLiSaleList(liCrypto); setBuyCurrency(CRYPTOCURRENCY[FocusCrypto[0]]); setSaleCurrency(CRYPTOCURRENCY[FocusCrypto[1]]); console.log("Swap");}
+if (ActivCategory=="Buy") { setBuyCategory(CRYPTOCURRENCY); setSaleCategory(CURRENCY); setLiBuyList(liCrypto); setLiSaleList(liCurrency); setBuyCurrency(CRYPTOCURRENCY[FocusCrypto[0]]); setSaleCurrency(CURRENCY[FocusCurr[0]]);  } 
+if (ActivCategory=="Sell") {setBuyCategory(CURRENCY); setSaleCategory(CRYPTOCURRENCY); setLiBuyList(liCurrency); setLiSaleList(liCrypto); setBuyCurrency(CURRENCY[FocusCurr[0]]); setSaleCurrency(CRYPTOCURRENCY[FocusCrypto[0]]); }
+if (ActivCategory=="Swap") {setBuyCategory(CRYPTOCURRENCY); setSaleCategory(CRYPTOCURRENCY); setLiBuyList(liCrypto); setLiSaleList(liCrypto); setBuyCurrency(CRYPTOCURRENCY[FocusCrypto[0]]); setSaleCurrency(CRYPTOCURRENCY[FocusCrypto[1]]); }
 },[ActivCategory, ActivCategory, FocusCurr, FocusCrypto]);
 
 // Function
