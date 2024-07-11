@@ -170,7 +170,7 @@ return navBuy ? css.buyNav: css.nav_hide
 // RETURN ========================================================================================================================
 return(
 <>
- <Loader type="bubble-scale" bgColor="#fff" color="#fff" size={100} /> 
+<Loader type="bubble-scale" bgColor="#fff" color="#fff" size={100} /> 
 
 
 
