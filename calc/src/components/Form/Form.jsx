@@ -3,6 +3,7 @@ import config from '../../config/config';
 import { useEffect, useState, useRef } from 'react';
 import lightTheme from '../../config/light-theme.module.css';
 import darkTheme from '../../config/dark-theme.module.css';
+import Loader from "react-js-loader";
 import axios from 'axios';
 
 
@@ -64,7 +65,7 @@ let [coinSecond, setCoinSecond] = useState(0);
 //API ========================================================================================================================
 
 //const ====================================================================================
-const urlApi = new URL(    "https://staging.baltbit.com/crypto-fusion/api/v1/public/real-time/how-much"        );
+const urlApi = new URL( "https://exempl.com" ); //  "https://staging.baltbit.com/crypto-fusion/api/v1/public/real-time/how-much"        );
 const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
@@ -75,7 +76,7 @@ const headers = {
 
   // Fetch Post ===============================================================================
 
-function APIFetchPost(Crypt, Curr) {
+function APIFetchPost(Crypt="BTC", Curr="USD") {
     console.log( "Запрос цены " + Crypt + " / " + Curr);
     body = {
         "payload": {
@@ -90,6 +91,9 @@ function APIFetchPost(Crypt, Curr) {
         }
     };
 
+
+    RequestAPI();
+    function RequestAPI(){
     fetch(urlApi, {
         method: "POST",
         headers,
@@ -97,7 +101,8 @@ function APIFetchPost(Crypt, Curr) {
     }
     ).then(response => response.json())
     .then((data) => { setPrice(data.data.source.amount) })
-    .catch(error => {console.log('Error occurred!')})
+    .catch(error => {setPrice('No connection! Please wait!');})
+    }
 }
 
 
@@ -115,33 +120,25 @@ return coin
 
 
 
-useEffect(()=>{
-console.log(UpdateTimer(1000))
-if (ActivCategory == "Buy") { APIFetchPost(buyCurrency.iso, saleCurrency.iso ); setInputBuy(inputSale*price)}
-if (ActivCategory == "Sell") {APIFetchPost( saleCurrency.iso, buyCurrency.iso); setInputBuy(inputSale/price)}
-},[saleCurrency,buyCurrency,inputSale, ActivCategory]);
+// useEffect(()=>{
+
+
+// console.log(UpdateTimer(1000))
+// if (ActivCategory == "Buy") { 
+//     let priceAPi =   APIFetchPost(buyCurrency.iso, saleCurrency.iso )
+//     setInputBuy(priceAPi)}
+// }
 
 
 
-
-
-
-
-
-
-
-
-
+// if (ActivCategory == "Sell") {APIFetchPost( saleCurrency.iso, buyCurrency.iso); setInputBuy(inputSale/price)}
+// },[saleCurrency,buyCurrency,inputSale, ActivCategory]);
 
 
 // useEffect ====================================================================================================================
 useEffect(() => {  
     setPrice(price);
 }, [price, saleCurrency, buyCurrency]);
-
-
-
-
 
 
 useEffect(() => {  
@@ -173,6 +170,12 @@ return navBuy ? css.buyNav: css.nav_hide
 // RETURN ========================================================================================================================
 return(
 <>
+ <Loader type="bubble-scale" bgColor="#fff" color="#fff" size={100} /> 
+
+
+
+
+
 <div className= {css.BuySellSwap}>
     {allButton}
 </div>
@@ -232,7 +235,7 @@ return(
 </div>
     
     <div className={css.message}>You get  {inputBuy} {buyCurrency.nameEN} for {inputSale} {saleCurrency.nameEN} <div className={css.galka}>&or;</div> </div>
-
 </div>
+
 </>
 )}
