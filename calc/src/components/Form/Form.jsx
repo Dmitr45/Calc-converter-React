@@ -3,8 +3,9 @@ import config from '../../config/config';
 import { useEffect, useState, useRef } from 'react';
 import lightTheme from '../../config/light-theme.module.css';
 import darkTheme from '../../config/dark-theme.module.css';
-import Loader from "react-js-loader";
 import axios from 'axios';
+import Veil from '../Veil/Veil';
+import APIprice from '../../config/APIprice';
 
 
 export default function Form(props){
@@ -13,9 +14,7 @@ let DarkTheme= props.DarkTheme;
 
 //BuySellSwap ===================================================================================================================
 const [ActivCategory, setActivCategory] = useState("Buy");
-
-
-useEffect(()=>{setActivCategory(ActivCategory);   },[ActivCategory]);
+useEffect(()=>{setActivCategory(ActivCategory); setPrice(0);   },[ActivCategory]);
 
 const BuyButton = <div className={ActivCategory == "Buy" ? css.button_activ: css.button} onClick={()=>{setActivCategory("Buy")}}>Buy</div>;
 const SellButton = <div className={ActivCategory == "Sell" ? css.button_activ: css.button} onClick={()=>{setActivCategory("Sell")}}>Sell</div>;
@@ -30,12 +29,12 @@ let body = {};
 
 const liCurrency =  <nav><ul className={css.ul}>
                         {CURRENCY.map((elem, index)=>{
-                            return <li key={index} onClick={()=>{setFocusCurr([index, FocusCurr[1]]);setNavSal(false);setNavBuy(false);}}><img className={css.icon} src={elem.icon} alt={elem.nameEN} /><div>{elem.nameEN}<br/><span className={css.iso}>{elem.iso}</span></div></li>
+                            return <li key={index} onClick={()=>{setFocusCurr([index, FocusCurr[1]]);setNavSal(false);setNavBuy(false); setPrice(0) }}><img className={css.icon} src={elem.icon} alt={elem.nameEN} /><div>{elem.nameEN}<br/><span className={css.iso}>{elem.iso}</span></div></li>
                         })}    
                     </ul></nav>
 const liCrypto =  <nav><ul className={css.ul}>
                         {CRYPTOCURRENCY.map((elem, index)=>{
-                            return <li key={index} onClick={()=>{setFocusCrypto([index, FocusCrypto[1]]);setNavSal(false);setNavBuy(false)}}  ><img className={css.icon} src={elem.icon} alt={elem.nameEN} /><div>{elem.nameEN}<br/><span className={css.iso}>{elem.iso}</span></div></li>
+                            return <li key={index} onClick={()=>{setFocusCrypto([index, FocusCrypto[1]]);setNavSal(false);setNavBuy(false); setPrice(0) }}  ><img className={css.icon} src={elem.icon} alt={elem.nameEN} /><div>{elem.nameEN}<br/><span className={css.iso}>{elem.iso}</span></div></li>
                         })}    
                     </ul></nav>
 
@@ -57,66 +56,67 @@ let [FocusCurr, setFocusCurr] = useState([0,0]);
 let [FocusCrypto, setFocusCrypto] = useState([0,1]);
 let [buyCurrency, setBuyCurrency]= useState(CURRENCY[FocusCurr[0]]);
 let [saleCurrency, setSaleCurrency] = useState(CRYPTOCURRENCY[FocusCrypto[0]]);
-let [price, setPrice] = useState(0);
+let [price, setPrice] = useState(2);
 let [inputSale, setInputSale] = useState(1);
 let [inputBuy, setInputBuy] = useState(0);
 let [coinSecond, setCoinSecond] = useState(0);
+let [veilLoader, setVeilLoader] = useState(true); // Закрыть калькулятор завесой с лоадером
 
 //API ========================================================================================================================
 
 //const ====================================================================================
-const urlApi = new URL( "https://exempl.com" ); //  "https://staging.baltbit.com/crypto-fusion/api/v1/public/real-time/how-much"        );
-const headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
+// const urlApi = new URL( "https://exempl.com" ); //  "https://staging.baltbit.com/crypto-fusion/api/v1/public/real-time/how-much"        );
+// const headers = {
+//     "Content-Type": "application/json",
+//     "Accept": "application/json",
+// };
 
 
 
 
   // Fetch Post ===============================================================================
 
-function APIFetchPost(Crypt="BTC", Curr="USD") {
-    console.log( "Запрос цены " + Crypt + " / " + Curr);
-    body = {
-        "payload": {
-            "direction": "source",
-            "source": {
-            "currency": Curr
-            },
-            "target": {
-            "amount": "1.00",
-            "currency": Crypt
-            }
-        }
-    };
+// function APIFetchPost(Crypt="BTC", Curr="USD") {
+//     console.log( "Запрос цены " + Crypt + " / " + Curr);
+//     body = {
+//         "payload": {
+//             "direction": "source",
+//             "source": {
+//             "currency": Curr
+//             },
+//             "target": {
+//             "amount": "1.00",
+//             "currency": Crypt
+//             }
+//         }
+//     };
 
 
-    RequestAPI();
-    function RequestAPI(){
-    fetch(urlApi, {
-        method: "POST",
-        headers,
-        body: JSON.stringify(body),
-    }
-    ).then(response => response.json())
-    .then((data) => { setPrice(data.data.source.amount) })
-    .catch(error => {setPrice('No connection! Please wait!');})
-    }
-}
+//     RequestAPI();
+//     function RequestAPI(){
+//     fetch(urlApi, {
+//         method: "POST",
+//         headers,
+//         body: JSON.stringify(body),
+//     }
+//     ).then(response => response.json())
+//     .then((data) => { setPrice(data.data.source.amount) })
+//     .catch(error => {setPrice('No connection! Please wait!');})
+//     }
+// }
 
 
 
-let coin = 0;
-function UpdateTimer(time){
+// let coin = 0;
+// function UpdateTimer(time){
 
-let timer =()=>{setTimeout(()=>{
-    if ( coin<20) {coin+=1; setCoinSecond(coin);} else { APIFetchPost(); coin=0; setCoinSecond(0);}
-    }, time)};
-clearTimeout(timer);
-timer();
-return coin
-}
+// let timer =()=>{setTimeout(()=>{
+//     if ( coin<20) {coin+=1; setCoinSecond(coin);} else { APIFetchPost(); coin=0; setCoinSecond(0);}
+//     }, time)};
+// clearTimeout(timer);
+// timer();
+// return coin
+// }
 
 
 
@@ -139,6 +139,10 @@ return coin
 useEffect(() => {  
     setPrice(price);
 }, [price, saleCurrency, buyCurrency]);
+
+useEffect(() => {  
+    price !== 0 ? setVeilLoader(false): setVeilLoader(true); setPrice(APIprice(buyCurrency.iso, saleCurrency.iso));  // Ставим лоадер если цена 0
+}, [price]);
 
 
 useEffect(() => {  
@@ -170,12 +174,7 @@ return navBuy ? css.buyNav: css.nav_hide
 // RETURN ========================================================================================================================
 return(
 <>
-<Loader type="bubble-scale" bgColor="#fff" color="#fff" size={100} /> 
-
-
-
-
-
+    { veilLoader?<Veil/>:<></> }
 <div className= {css.BuySellSwap}>
     {allButton}
 </div>
@@ -235,7 +234,7 @@ return(
 </div>
     
     <div className={css.message}>You get  {inputBuy} {buyCurrency.nameEN} for {inputSale} {saleCurrency.nameEN} <div className={css.galka}>&or;</div> </div>
-</div>
 
+</div>
 </>
 )}

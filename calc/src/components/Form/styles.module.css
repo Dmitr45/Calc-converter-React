@@ -1,4 +1,5 @@
 .BuySellSwap {
+  box-sizing: border-box;
   height: 43px;
   display: flex;
   align-items: flex-start;

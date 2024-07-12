@@ -2,6 +2,7 @@
 
 
 .component{
+    box-sizing: border-box;
     .button{
     display: flex;
     flex-direction: row;
