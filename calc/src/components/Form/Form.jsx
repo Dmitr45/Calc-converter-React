@@ -3,29 +3,26 @@ import config from '../../config/config';
 import { useEffect, useState, useRef } from 'react';
 import lightTheme from '../../config/light-theme.module.css';
 import darkTheme from '../../config/dark-theme.module.css';
-import axios from 'axios';
 import Veil from '../Veil/Veil';
-import APIprice from '../../config/APIprice';
+
 
 
 export default function Form(props){
-//Props==========================================================================================================================
-let DarkTheme= props.DarkTheme;
+// useRef
+const navBuyRef = useRef(null);
+//useClickOutside(navBuyRef, ()=>{setNavBuy(false)});
+const navSalRef = useRef(null);
+//useClickOutside(navSalRef, ()=>{setNavSal(false)});
+const iBuyRef = useRef(null); 
+const iSaleRef = useRef(null);
 
-//BuySellSwap ===================================================================================================================
-const [ActivCategory, setActivCategory] = useState("Buy");
-useEffect(()=>{setActivCategory(ActivCategory); setPrice(0);   },[ActivCategory]);
-
-const BuyButton = <div className={ActivCategory == "Buy" ? css.button_activ: css.button} onClick={()=>{setActivCategory("Buy")}}>Buy</div>;
-const SellButton = <div className={ActivCategory == "Sell" ? css.button_activ: css.button} onClick={()=>{setActivCategory("Sell")}}>Sell</div>;
-const SwapButton = <div className={ActivCategory == "Swap" ? css.button_activ: css.button} onClick={()=>{setActivCategory("Swap")}}>Swap</div>;
-const allButton = [BuyButton, SellButton, SwapButton] 
-
-
-// Const Let =========================================================================================================================
 const CURRENCY= config("CURRENCY");
 const CRYPTOCURRENCY = config("CRYPTOCURRENCY");
 let body = {};
+
+
+// Const Let =========================================================================================================================
+
 
 const liCurrency =  <nav><ul className={css.ul}>
                         {CURRENCY.map((elem, index)=>{
@@ -38,13 +35,8 @@ const liCrypto =  <nav><ul className={css.ul}>
                         })}    
                     </ul></nav>
 
-// useRef
-const navBuyRef = useRef(null);
-//useClickOutside(navBuyRef, ()=>{setNavBuy(false)});
-const navSalRef = useRef(null);
-//useClickOutside(navSalRef, ()=>{setNavSal(false)});
-const iBuyRef = useRef(null); 
-const iSaleRef = useRef(null);
+
+
 // useState ======================================================================================================================
 let [buyCategory, setBuyCategory] = useState(CURRENCY);
 let [saleCategory, setSaleCategory] = useState(CRYPTOCURRENCY);
@@ -60,94 +52,94 @@ let [price, setPrice] = useState(2);
 let [inputSale, setInputSale] = useState(1);
 let [inputBuy, setInputBuy] = useState(0);
 let [coinSecond, setCoinSecond] = useState(0);
-let [veilLoader, setVeilLoader] = useState(true); // Закрыть калькулятор завесой с лоадером
+let [veilLoader, setVeilLoader] = useState(false); // Закрыть калькулятор завесой с лоадером
+let [priceAPI, setPriceAPI] = useState(0); 
 
-//API ========================================================================================================================
 
-//const ====================================================================================
-// const urlApi = new URL( "https://exempl.com" ); //  "https://staging.baltbit.com/crypto-fusion/api/v1/public/real-time/how-much"        );
+
+
+// // Const API ====================================================================================
+// useEffect(()=>{
+// ping();
+// function ping() {
+// const urlApi = new URL(
+//     "https://staging.baltbit.com/crypto-fusion/api/v1/public/real-time/how-much"
+// );
 // const headers = {
 //     "Content-Type": "application/json",
 //     "Accept": "application/json",
 // };
 
-
-
-
-  // Fetch Post ===============================================================================
-
-// function APIFetchPost(Crypt="BTC", Curr="USD") {
-//     console.log( "Запрос цены " + Crypt + " / " + Curr);
-//     body = {
-//         "payload": {
-//             "direction": "source",
-//             "source": {
-//             "currency": Curr
-//             },
-//             "target": {
-//             "amount": "1.00",
-//             "currency": Crypt
-//             }
+// let bodyAPI = {
+//     "payload": {
+//         "direction": "source",
+//         "source": {
+//             "currency": buyCurrency.iso
+//         },
+//         "target": {
+//         "amount": "1.00",
+//             "currency": saleCurrency.iso
 //         }
-//     };
-
-
-//     RequestAPI();
-//     function RequestAPI(){
-//     fetch(urlApi, {
-//         method: "POST",
-//         headers,
-//         body: JSON.stringify(body),
 //     }
-//     ).then(response => response.json())
-//     .then((data) => { setPrice(data.data.source.amount) })
-//     .catch(error => {setPrice('No connection! Please wait!');})
-//     }
+// };
+
+// console.log(buyCurrency.iso + "   " + saleCurrency.iso);
+
+// // Connect API =====================================================================================
+
+//                 fetch(urlApi, {
+//                 method: "POST",
+//                 headers,
+//                 body: JSON.stringify(bodyAPI),
+//                 }).then(response => response.json())
+//                 .then((data) => { data.data.source.amount? setPriceAPI(data.data.source.amount) : setPriceAPI(0) })
+//                 .catch(err => {
+//                     console.log(err); 
+//                 });
+
+//                 console.log("Новое значение priceAPI: " + priceAPI);    
+
 // }
 
-
-
-// let coin = 0;
-// function UpdateTimer(time){
-
-// let timer =()=>{setTimeout(()=>{
-//     if ( coin<20) {coin+=1; setCoinSecond(coin);} else { APIFetchPost(); coin=0; setCoinSecond(0);}
-//     }, time)};
-// clearTimeout(timer);
-// timer();
-// return coin
-// }
+// },[price, saleCurrency, buyCurrency]);
 
 
 
-// useEffect(()=>{
-
-
-// console.log(UpdateTimer(1000))
-// if (ActivCategory == "Buy") { 
-//     let priceAPi =   APIFetchPost(buyCurrency.iso, saleCurrency.iso )
-//     setInputBuy(priceAPi)}
-// }
+//=================================================================================================================
 
 
 
-// if (ActivCategory == "Sell") {APIFetchPost( saleCurrency.iso, buyCurrency.iso); setInputBuy(inputSale/price)}
-// },[saleCurrency,buyCurrency,inputSale, ActivCategory]);
+
+
+
+
+
+//Props==========================================================================================================================
+let DarkTheme= props.DarkTheme;
+
+//BuySellSwap ===================================================================================================================
+const [ActivCategory, setActivCategory] = useState("Buy");
+useEffect(()=>{setActivCategory(ActivCategory); setPrice(0);   },[ActivCategory]);
+
+const BuyButton = <div className={ActivCategory == "Buy" ? css.button_activ: css.button} onClick={()=>{setActivCategory("Buy")}}>Buy</div>;
+const SellButton = <div className={ActivCategory == "Sell" ? css.button_activ: css.button} onClick={()=>{setActivCategory("Sell")}}>Sell</div>;
+const SwapButton = <div className={ActivCategory == "Swap" ? css.button_activ: css.button} onClick={()=>{setActivCategory("Swap")}}>Swap</div>;
+const allButton = [BuyButton, SellButton, SwapButton] 
 
 
 // useEffect ====================================================================================================================
-useEffect(() => {  
-    setPrice(price);
-}, [price, saleCurrency, buyCurrency]);
 
 useEffect(() => {  
-    price !== 0 ? setVeilLoader(false): setVeilLoader(true); setPrice(APIprice(buyCurrency.iso, saleCurrency.iso));  // Ставим лоадер если цена 0
-}, [price]);
+    price !== 0 ? setVeilLoader(false):  setVeilLoader(false );   // Ставим лоадер если цена 0
+    if (price === 0) {setPrice(priceAPI);};
+    setInputSale(inputSale);
+}, [price, saleCurrency, buyCurrency,inputBuy, inputSale, priceAPI]);
+
 
 
 useEffect(() => {  
     document.activeElement == iBuyRef.current ? setInputSale(inputBuy/price) :setInputBuy(inputSale*price);
-}, [inputBuy, inputSale]);
+}, [inputBuy, inputSale, price]);
 
 useEffect(()=>{
 setActivCategory(ActivCategory);
@@ -156,7 +148,7 @@ if (ActivCategory=="Sell") {setBuyCategory(CURRENCY); setSaleCategory(CRYPTOCURR
 if (ActivCategory=="Swap") {setBuyCategory(CRYPTOCURRENCY); setSaleCategory(CRYPTOCURRENCY); setLiBuyList(liCrypto); setLiSaleList(liCrypto); setBuyCurrency(CRYPTOCURRENCY[FocusCrypto[0]]); setSaleCurrency(CRYPTOCURRENCY[FocusCrypto[1]]); }
 },[ActivCategory, ActivCategory, FocusCurr, FocusCrypto]);
 
-// Function
+// Function =====================================================================================================================
 
 function exchangeCurr(){
 if (ActivCategory=="Buy"){setActivCategory("Sell")};
@@ -165,9 +157,10 @@ if (ActivCategory=="Swap") { setFocusCrypto([FocusCrypto[1],FocusCrypto[0]])};
 }
 
 function buyNav(){
-
 return navBuy ? css.buyNav: css.nav_hide
 }
+
+
 
 
 
